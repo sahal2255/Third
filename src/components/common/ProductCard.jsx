@@ -1,33 +1,41 @@
-import { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ProductCard = ({ product }) => {
-  return (
-    <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-300">
-      {/* Swiper for Image Slider */}
-      <Swiper
-        modules={[Navigation, Pagination]}
-        navigation
-        pagination={{ clickable: true }}
-        className="w-full h-52 "
-      >
-        {product.imageUrl.map((image, index) => (
-          <SwiperSlide key={index} className="flex justify-center items-center">
-            <div className="p-6">
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+  };
 
-            <img
-              src={image}
-              alt={`${product.name} ${index + 1}`}
-              className="w-full h-52 object-cover"
-            />
+  return (
+    <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 p-6">
+      {/* Render Slider if multiple images exist, otherwise just show a single image */}
+      {product.imageUrl.length > 1 ? (
+        <Slider {...settings} className="w-full h-52">
+          {product.imageUrl.map((image, index) => (
+            <div key={index} className="flex justify-center items-center ">
+              <img
+                src={image}
+                alt={`${product.name} ${index + 1}`}
+                className="w-full h-52 object-cover"
+              />
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+          ))}
+        </Slider>
+      ) : (
+        <div className="flex justify-center items-center w-full h-52">
+          <img
+            src={product.imageUrl[0]}
+            alt={product.name}
+            className="w-full h-52 object-cover"
+          />
+        </div>
+      )}
 
       {/* Product Info */}
       <div className="p-5">

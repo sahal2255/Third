@@ -1,16 +1,25 @@
-import React from 'react'
-import Link from 'next/link'
-const AdminLayout = ({children}) => {
-  return (
-    <div>
-      <nav>
-        <Link href="/admin">Dashboard</Link>
-        <Link href="/admin/users">Users</Link>
-        <Link href="/admin/products">Products</Link>
-      </nav>
-      <main>{children}</main>
-    </div>
-  )
-}
+import React, { useState } from 'react';
+import AdminSidebar from '../admin/AdminSidebar';
+import AdminHeader from '../admin/AdminHeader';
 
-export default AdminLayout
+const AdminLayout = ({ children }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  return (
+    <div className="flex flex-col h-screen">
+      <AdminHeader setSidebarOpen={setSidebarOpen} sidebarOpen={sidebarOpen} />
+
+      <div className="flex flex-1">
+        <div className={`fixed lg:relative w-64 bg-black transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}>
+          <AdminSidebar setSidebarOpen={setSidebarOpen} />
+        </div>
+
+        <div className="flex-1 p-5 bg-gray-100 overflow-auto">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminLayout;
