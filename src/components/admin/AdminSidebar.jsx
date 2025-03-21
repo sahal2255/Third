@@ -10,7 +10,7 @@ const AdminSidebar = ({ setSidebarOpen }) => {
     { name: "Dashboard", href: "/admin", icon: <IoHomeOutline size={20} /> },
     { name: "Products", href: "/admin/products", icon: <FiPackage size={20} /> },
     { name: "Users", href: "/admin/users", icon: <AiOutlineUsergroupAdd size={20} /> },
-    // { name: "Settings", href: "/admin/settings", icon: <IoSettingsOutline size={20} /> },
+    // { name: "Login ", href: "/admin/login", icon: <IoSettingsOutline size={20} /> },
   ];
 
   return (
@@ -19,9 +19,9 @@ const AdminSidebar = ({ setSidebarOpen }) => {
         <IoCloseOutline />
       </button>
 
-      <h2 className="text-xl font-bold text-center py-4 border-b border-gray-700">
+      {/* <h2 className="text-xl font-bold text-center py-4 border-b border-gray-700">
         Admin Panel
-      </h2>
+      </h2> */}
 
       <nav className="mt-5">
         {links.map((link) => (
