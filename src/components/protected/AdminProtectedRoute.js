@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { checkAdminAuth } from "@/pages/api/adminService";
+import useAdminAuthStore from "@/store/useAdminAuth";
 import AdminLayout from "@/components/Layouts/AdminLayout";
 
 const AdminProtectedRoute = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const { isAuthenticated, verifyAdmin } = useAdminAuthStore();
   const router = useRouter();
 
   useEffect(() => {
-    const verifyAdmin = async () => {
-      try {
-        const response = await checkAdminAuth();
-        if (response?.success) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-          router.push("/admin/login");
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-        router.push("/admin/login");
-      }
-    };
-
-    verifyAdmin();
-  }, []);
+    if (isAuthenticated === null) {
+      verifyAdmin();
+    }
+  }, [isAuthenticated, verifyAdmin]);
 
   if (isAuthenticated === null) {
     return (
@@ -34,7 +21,12 @@ const AdminProtectedRoute = ({ children }) => {
     );
   }
 
-  return isAuthenticated ? <AdminLayout>{children}</AdminLayout> : null;
+  if (!isAuthenticated) {
+    router.replace("/admin/login");
+    return null;
+  }
+
+  return <AdminLayout>{children}</AdminLayout>;
 };
 
 export default AdminProtectedRoute;

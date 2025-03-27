@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { IoHomeOutline,IoCloseOutline ,IoSettingsOutline} from "react-icons/io5";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { FiPackage } from "react-icons/fi";
+import { BiCategoryAlt } from "react-icons/bi";
 
 const AdminSidebar = ({ setSidebarOpen }) => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const AdminSidebar = ({ setSidebarOpen }) => {
     { name: "Dashboard", href: "/admin", icon: <IoHomeOutline size={20} /> },
     { name: "Products", href: "/admin/products", icon: <FiPackage size={20} /> },
     { name: "Users", href: "/admin/users", icon: <AiOutlineUsergroupAdd size={20} /> },
-    // { name: "Login ", href: "/admin/login", icon: <IoSettingsOutline size={20} /> },
+    { name: "Categories ", href: "/admin/categories", icon: <BiCategoryAlt size={20} /> },
   ];
 
   return (

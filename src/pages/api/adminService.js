@@ -32,3 +32,24 @@ export const adminLogout=async()=>{
         console.log('error in admin logout service',error)
     }
 }
+
+export const GetCategories=async()=>{
+    console.log('req enter the service section')
+    try {
+        const res=await axiosInstance.get('/admin/categories')
+        console.log(res)
+        return res.data
+    } catch (error) {
+        console.log('error in the get categories service',error)
+    }
+}
+
+export const GetProducts=async()=>{
+    console.log('enter get product service')
+    try {
+        const response=await axiosInstance.get('/admin/getproducts')
+        console.log(response)
+    } catch (error) {
+        console.log('error in the fetching product service',error)
+    }
+}
